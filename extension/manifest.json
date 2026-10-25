@@ -1,0 +1,70 @@
+{
+  "manifest_version": 3,
+  "name": "YouTube Original 5.1",
+  "version": "2026.10.26",
+  "description": "YouTubeの元の5.1ch音声をHRTFヘッドホン／Windows空間オーディオで再生。",
+  "permissions": [
+    "declarativeNetRequestWithHostAccess",
+    "nativeMessaging",
+    "storage"
+  ],
+  "background": {
+    "service_worker": "native-bridge.js"
+  },
+  "host_permissions": [
+    "https://www.youtube.com/*",
+    "https://*.googlevideo.com/*"
+  ],
+  "declarative_net_request": {
+    "rule_resources": [
+      {
+        "id": "tv_headers",
+        "enabled": true,
+        "path": "rules.json"
+      }
+    ]
+  },
+  "content_security_policy": {
+    "extension_pages": "script-src 'self' 'wasm-unsafe-eval'; object-src 'none'; frame-src 'self'; worker-src 'self'; connect-src 'self' https://www.youtube.com https://*.googlevideo.com;",
+    "sandbox": "sandbox allow-scripts; script-src 'self' 'unsafe-eval'; child-src 'none'; connect-src 'none'; object-src 'none';"
+  },
+  "sandbox": {
+    "pages": [
+      "solver.html"
+    ]
+  },
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "processor.html",
+        "processor.js",
+        "decoder-worker.js",
+        "solver.html",
+        "solver.js",
+        "vendor/*"
+      ],
+      "matches": [
+        "https://www.youtube.com/*"
+      ]
+    }
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "https://www.youtube.com/*"
+      ],
+      "js": [
+        "segmented-audio.js",
+        "atmos-renderer.js",
+        "mute-recovery.js",
+        "controller.js"
+      ],
+      "css": [
+        "content.css"
+      ],
+      "run_at": "document_idle"
+    }
+  ],
+  "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAvd579M/rt+wSGnlmvY4FdUZQzmAbWpH8DTUQedKjevgovIOUt8bt9a+amFiC6y3kZw0ocFAepmxjj8sDXy6OiWCd0hK0p5LLwQvMR/v5kuj/5dWyRtUDGy6Ii+5Fu9ySbV2y5edDtegtwBbdLgmV+YyBlUL2WOyVYrDq0GP0t+6SvCBUqBMWfUO9g9rsv8P7eBQ1cZaiDrA+liK1CfDgrVpZ8FpFcin88kMz9IrvRuHCdLEWYEXnv3ASUkMYnYloqO3onoDVVrso4g5Ix6pk58mnTc6X8+NND7Cb/d8a/jOYToZFGV69Fc4zy3pm1FOqdATnhJ1tVK1ACqRA//QIdwIDAQAB",
+  "version_name": "2026-10-26"
+}

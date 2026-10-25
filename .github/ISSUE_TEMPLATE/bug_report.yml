@@ -1,0 +1,28 @@
+name: 不具合の報告
+description: 再生・取得・同期に関する不具合
+body:
+  - type: input
+    id: version
+    attributes:
+      label: 拡張機能のビルド日（同日再ビルド番号があればそれも記載）
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: 環境
+      description: OS、Chrome/Edgeのバージョン、選択モード、出力機器。Windows空間音響の場合は選択したプロバイダーも記載してください。
+    validations:
+      required: true
+  - type: input
+    id: video
+    attributes:
+      label: 再現する公開動画のURL（任意）
+      description: 公開してよい動画だけを記載してください。
+  - type: textarea
+    id: steps
+    attributes:
+      label: 再現手順と表示されたエラー
+      description: 期待した動作と実際の動作を記載してください。Cookie、署名付きgooglevideo URL、トークン、未加工の通信ログは貼らないでください。
+    validations:
+      required: true

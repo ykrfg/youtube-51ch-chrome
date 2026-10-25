@@ -1,0 +1,8 @@
+#yt-original-surround { display:flex; flex-wrap:wrap; align-items:center; gap:8px; padding:10px 12px; margin:8px 0; border:1px solid #555; border-radius:10px; background:#181818; color:#eee; font:13px/1.5 system-ui,sans-serif; }
+#yt-original-surround button { border:1px solid #777; border-radius:6px; padding:6px 10px; background:#303030; color:#fff; cursor:pointer; font:inherit; }
+#yt-original-surround button:disabled { opacity:.5; cursor:wait; }
+#yt-original-surround [data-role=status] { flex:1 1 240px; overflow-wrap:anywhere; }
+#yt-original-surround [data-role=output] { color:#ffcb75; width:100%; }
+#yt-original-surround [data-role=help] { color:#bbb; width:100%; }
+#yt-original-surround[hidden] { display:none !important; }
+#yt-original-surround select { margin-left:6px; border:1px solid #777; border-radius:6px; padding:6px; background:#303030; color:#fff; font:inherit; }

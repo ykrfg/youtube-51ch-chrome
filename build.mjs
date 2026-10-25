@@ -1,0 +1,11 @@
+import {build} from 'esbuild';
+import {copyFile,mkdir,readFile,writeFile} from 'node:fs/promises';
+import {sha256} from './scripts/files.mjs';
+import {stampBuild} from './scripts/build-date.mjs';
+const identity=await stampBuild();
+await mkdir('extension/vendor',{recursive:true});
+const result=await build({entryPoints:['src/processor.js'],bundle:true,format:'esm',platform:'browser',target:'chrome120',conditions:['browser'],outfile:'extension/processor.js',logLevel:'info',metafile:true});
+for(const name of ['ffmpeg-core.js','ffmpeg-core.wasm'])await copyFile(`node_modules/@ffmpeg/core/dist/esm/${name}`,`extension/vendor/${name}`);
+const inputs={};for(const path of Object.keys(result.metafile.inputs).sort())inputs[path]=sha256(await readFile(path));
+await mkdir('.cache',{recursive:true});await writeFile('.cache/browser-build.json',JSON.stringify({build:identity,inputs,outputSha256:sha256(await readFile('extension/processor.js'))},null,2)+'\n');
+console.log('Build date: '+identity.label+' (JST)');

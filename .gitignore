@@ -1,0 +1,16 @@
+node_modules/
+dist/
+.cache/
+extension/processor.js
+extension/vendor/
+extension/_metadata/
+native/youtube-surround-host.exe
+native/jp.local.youtube_surround_audio.json
+native/build-info.json
+*.obj
+*.pdb
+*.ilk
+*.log
+.DS_Store
+Thumbs.db
+

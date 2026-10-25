@@ -1,0 +1,41 @@
+name: Prepare release artifacts
+on:
+  workflow_dispatch:
+    inputs:
+      build_revision:
+        description: Same-day rebuild number (0 for the first build)
+        default: '0'
+        required: true
+permissions:
+  contents: read
+jobs:
+  package:
+    runs-on: windows-latest
+    env:
+      BUILD_REVISION: ${{ inputs.build_revision }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci
+      - run: npm test
+      - run: npm run build
+      - run: npm run build:native
+      - run: npm run sources
+      - run: npm run package
+      - uses: actions/upload-artifact@v4
+        with:
+          name: release-assets
+          path: |
+            dist/*/release/*
+            dist/*/SHA256SUMS.txt
+          compression-level: 0
+          if-no-files-found: error
+      - uses: actions/upload-artifact@v4
+        with:
+          name: source-assets
+          path: dist/*/source/*
+          compression-level: 0
+          if-no-files-found: error
